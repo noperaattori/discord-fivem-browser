@@ -1,6 +1,12 @@
 # discord-fivem-browser
 
-A proper README coming soon.
+A FiveM helper bot for Discord. Shows player count on the channel title and delivers player list when requested.
+
+### Channel Title
+![Imgur](https://i.imgur.com/CivuAY9.png?1)
+
+### Server Browser
+![Imgur](https://i.imgur.com/InoMIPv.png)
 
 ### Quick start
 
@@ -21,4 +27,6 @@ To see the playerlist, type `![server name]`, for example `!server1`. This requi
 
 Feel free to add issues or better yet, do pull requests
 
-Run the bot on `Node.js v10.4.1` and use [Forever](https://github.com/foreverjs/forever) to run it, as the Discord.js crashes occasionally.
+The bot is developed and tested on `Node.js v10.4.1`. 
+
+I recommend using [Forever](https://github.com/foreverjs/forever) to run it, as the Discord.js crashes occasionally.
