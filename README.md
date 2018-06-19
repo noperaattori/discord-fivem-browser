@@ -4,9 +4,10 @@ A proper README coming soon.
 
 ### Quick start
 
-1. Create a bot user in Discord developer website and copy it's token to config.js
-2. Follow the instructions in the console to authorize the bot on your server
-3. Make sure the bot has `manage-channels` and `read/send message` permissions
+1. Copy/rename `config.js.example` to `config.js`
+2. Create a bot user in Discord developer website and copy it's token to config.js
+3. Follow the instructions in the console to authorize the bot on your server
+4. Make sure the bot has `manage-channels` and `read/send message` permissions
 
 ### Installation
 ```
