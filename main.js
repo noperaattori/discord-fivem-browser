@@ -1,7 +1,15 @@
 const axios = require('axios');
 const Discord = require('discord.js');
-const options = require('./config/config').options;
 const _ = require('lodash');
+
+// Check if the config exists
+try {
+  var options = require('./config/config').options;
+} catch(error) {
+  console.log('\x1b[41m%s\x1b[0m', '\nMake sure you copy/rename config.js.example to config.js!\n');
+}
+
+// Create Discord client instance
 const client = new Discord.Client();
 
 /**
@@ -81,19 +89,24 @@ client.on('message', message => {
   }
 
   // Parse the command and find a matching server from options array
-  const rawCommand = String(message.content).substr(1).trim();
-  const server = options.servers.find(k => k.name === rawCommand || k.alias === rawCommand);
+  const rawCommand = String(message.content).substr(1).trim().toLowerCase().replace(/ /g,'');
+  const server = options.servers.find(k => k.name.toLowerCase().replace(/ /g, '') === rawCommand || k.alias.toLowerCase().replace(/ /g, '') === rawCommand);
 
-  getPlayers(server.url).then(response => {
-    let block = [_.capitalize(server.name) + " (" + response.data.length + "/32)", "---"];
-    for (let player of response.data) {
-      let playerId = _.padStart(player.id, 2);
-      block.push("[" + playerId + "] " + player.name + " : " + player.identifiers[0]);
-    }
-    message.channel.send(block.concat("\n"), {code: true});
-  }).catch(error => { console.log(error) });
+  if (server) {
+    getPlayers(server.url).then(response => {
+      let block = [_.startCase(_.toLower(server.name)) + " (" + response.data.length + "/32)", "---"];
+      for (let player of response.data) {
+        let playerId = _.padStart(player.id, 2);
+        block.push("[" + playerId + "] " + player.name + " : " + player.identifiers[0]);
+      }
+      message.channel.send(block.concat("\n"), {code: true});
+    }).catch(error => {
+      console.log(error)
+    });
+  } else {
+    return;
   }
-);
+});
 
 // Log in
 client.login(options.token);
