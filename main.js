@@ -41,7 +41,7 @@ client.setInterval(async () => {
   for (const server of options.servers) {
     let players = await getPlayers(`${server.url}/players.json`);
     servers.push({
-      name: _.capitalize(server.name),
+      name: server.name,
       count: players.data.length,
     });
     total =+ players.data.length;
@@ -58,10 +58,9 @@ client.setInterval(async () => {
   // Set topics for set channels
   for (const channel of options.topicChannels){
     try {
-      //console.log(topic);
       client.channels.find('name', channel).setTopic(topic);
-    } catch(e){
-      console.log(e);
+    } catch(error){
+      console.log(error);
     }
   }
 }, options.pollRate * 1000);
